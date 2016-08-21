@@ -1,0 +1,41 @@
+# Paying Debt Off in a Year: Bisection Method
+    
+
+#Test Case 1:
+#balance = 999999
+#annualInterestRate = 0.18
+
+#Result Your Code Should Generate:
+
+#Lowest Payment: 90325.03
+
+balance = float(raw_input('Enter the current balance on your debt: '))
+annualInterestRate = float(raw_input('Enter the estimated annual interest rate for the aforementioned debt: '))
+
+monthirate = annualInterestRate/12
+monthlypayment = 0
+loopbalance = balance
+
+# For binary search
+high = balance*annualInterestRate
+low = balance/12
+
+while abs(loopbalance) > .1:
+    monthlypayment = round(((high+low)/2),2)
+    loopbalance = balance
+    month = 1
+    
+    while month < 13 and loopbalance > 0:
+        loopbalance -= monthlypayment
+        interest = monthirate * loopbalance
+        loopbalance += interest
+        month +=1
+    if loopbalance > 0:
+        low = monthlypayment
+    else:
+        high = monthlypayment
+        
+    print("monthly payment: " + str(monthlypayment))
+    print("remaining payment: " + str(loopbalance))
+    
+print("Monthly payment for 12-month loan payment is: " + str(monthlypayment))
